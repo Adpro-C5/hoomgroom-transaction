@@ -45,7 +45,7 @@ class TransactionRepositoryTest{
         transactionRepository.create(transaction);
 
         Iterator<Transaction> transactionIterator = transactionRepository.findAll();
-        assertTrue(transactionRepository.hasNext());
+        assertTrue(transactionIterator.hasNext());
         Transaction savedTransaction = transactionIterator.next();
         assertEquals(transaction.getId(), savedTransaction.getId());
         assertEquals(transaction.getUserUsername(), savedTransaction.getUserUsername());
@@ -149,7 +149,7 @@ class TransactionRepositoryTest{
         UUID id1 = transaction.getId();
 
         assertThrows(NoSuchElementException.class, () -> {
-            transaction.findById(id1);
+            transactionRepository.findById(id1);
         });
     }
 }
