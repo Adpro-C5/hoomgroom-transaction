@@ -8,6 +8,7 @@ import java.util.UUID;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TransactionTest {
 
@@ -16,7 +17,7 @@ public class TransactionTest {
 
     @BeforeEach
     void setUp() {
-        this.transaction = new transaction("dummyUsername");
+        this.transaction = new Transaction("dummyUsername");
         this.transaction.setId(UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"));
         this.transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         this.transaction.setProductAmount(15);
@@ -58,11 +59,15 @@ public class TransactionTest {
 
     @Test
     void testGetPaymentDate() {
-        assertEquals("Mon Apr 22 18:58:25 WIB 2024", this.dateFormat.parse(this.transaction.getPaymentDate));
+        try {
+            assertEquals(this.dateFormat.parse("Mon Apr 22 18:58:25 WIB 2024"), this.transaction.getPaymentDate());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
     void testGetTotalPrice() {
-        assertEquals(34500000.0, this.transaction.getTotalPrice);
+        assertEquals(34500000.0, this.transaction.getTotalPrice());
     }
 }
