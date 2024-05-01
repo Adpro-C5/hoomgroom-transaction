@@ -22,6 +22,8 @@ repositories {
 	mavenCentral()
 }
 
+val junitJupiterVersion = "5.9.1"
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -30,6 +32,11 @@ dependencies {
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	runtimeOnly("org.postgresql:postgresql")
+	testImplementation("org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion")
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
+	testImplementation("com.h2database:h2")
 }
 
 tasks.withType<Test> {
