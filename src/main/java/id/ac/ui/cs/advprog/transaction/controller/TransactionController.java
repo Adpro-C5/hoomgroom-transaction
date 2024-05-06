@@ -47,19 +47,10 @@ public class TransactionController{
     @PostMapping("/create")
     public ResponseEntity<Object> createTransaction(@RequestBody Transaction transaction){
         try{
-            // nanti akan dibuat handler
-            Transaction createdTransaction = new Transaction(
-                    transaction.getUserId(),
-                    transaction.getProductId(),
-                    transaction.getProductAmount(),
-                    transaction.getPromoCode()
-            );
-
-            Transaction resultTransaction = transactionService.create(createdTransaction);
-
+            Transaction resultTransaction = transactionService.create(transaction);
             return ResponseEntity.status(HttpStatus.OK).body(resultTransaction);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
 
