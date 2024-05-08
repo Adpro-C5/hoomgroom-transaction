@@ -48,6 +48,7 @@ public class TransactionController{
     public ResponseEntity<Object> createTransaction(@RequestBody Transaction transaction){
         try{
             Transaction resultTransaction = transactionService.create(transaction);
+            transactionService.createShipment(resultTransaction.getTransactionId());
             return ResponseEntity.status(HttpStatus.OK).body(resultTransaction);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());

@@ -6,7 +6,10 @@ import id.ac.ui.cs.advprog.transaction.handler.AuthCheckHandler;
 import id.ac.ui.cs.advprog.transaction.handler.TotalPriceHandler;
 import id.ac.ui.cs.advprog.transaction.handler.CouponHandler;
 import id.ac.ui.cs.advprog.transaction.handler.BalanceCheckHandler;
+import id.ac.ui.cs.advprog.transaction.dto.ShipmentDTO;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +20,7 @@ public class TransactionServiceImpl implements TransactionService{
 
     private final TransactionRepository transactionRepository;
     private final AuthCheckHandler authCheckHandler;
+    RestTemplate restTemplate = new RestTemplate();
 
     public TransactionServiceImpl(TransactionRepository transactionRepository){
         this.transactionRepository = transactionRepository;
@@ -40,6 +44,14 @@ public class TransactionServiceImpl implements TransactionService{
         catch(IllegalArgumentException e){
             throw e;
         }
+    }
+
+    @Async("asyncTaskExecutor")
+    @Override
+    public void createShipment(UUID transactionId){
+        // sementara menggunakan localhost
+        String shippingUrl = "http://localhost:8001/shipment/create/" + transactionId.toString();
+        restTemplate.postForEntity(shippingUrl, null, ShipmentDTO.class);
     }
 
     @Override

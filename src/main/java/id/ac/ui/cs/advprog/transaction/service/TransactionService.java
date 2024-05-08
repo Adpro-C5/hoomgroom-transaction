@@ -12,4 +12,5 @@ public interface TransactionService {
     Optional<Transaction> findById(UUID transactionId);
     Transaction edit(Transaction transaction);
     void deleteById(UUID transactionId);
+    void createShipment(UUID transactionId);
 }
