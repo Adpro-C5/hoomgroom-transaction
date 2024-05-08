@@ -48,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public List<Transaction> findAllByUserId(UUID userId){
+    public List<Transaction> findAllByUserId(Integer userId){
         return transactionRepository.findAllByUserId(userId);
     }
 

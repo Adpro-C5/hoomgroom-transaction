@@ -33,7 +33,7 @@ class TransactionRepositoryTest{
     @Test
     void testCreateAndFind(){
         Transaction transaction = new Transaction();
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -63,7 +63,7 @@ class TransactionRepositoryTest{
     void testEditTransaction(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"));
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -98,7 +98,7 @@ class TransactionRepositoryTest{
     @Test
     void testFindById(){
         Transaction transaction = new Transaction();
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -121,7 +121,7 @@ class TransactionRepositoryTest{
     void testDeleteTransactionThenFindById(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"));
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);

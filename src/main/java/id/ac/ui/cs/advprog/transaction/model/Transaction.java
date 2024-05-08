@@ -21,7 +21,7 @@ public class Transaction {
     private UUID transactionId;
 
     @Column(name = "user_id", nullable = false)
-    private UUID userId;
+    private Integer userId;
 
     @Column(name = "product_id", nullable = false)
     private UUID productId;
@@ -43,7 +43,7 @@ public class Transaction {
     public Transaction(){}
 
     public Transaction(
-            UUID userId,
+            Integer userId,
             UUID productId,
             Integer productAmount,
             String promoCode) {

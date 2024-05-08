@@ -8,7 +8,7 @@ import java.util.UUID;
 public interface TransactionService {
     Transaction create(Transaction transaction);
     List<Transaction> findAll();
-    List<Transaction> findAllByUserId(UUID userId);
+    List<Transaction> findAllByUserId(Integer userId);
     Optional<Transaction> findById(UUID transactionId);
     Transaction edit(Transaction transaction);
     void deleteById(UUID transactionId);

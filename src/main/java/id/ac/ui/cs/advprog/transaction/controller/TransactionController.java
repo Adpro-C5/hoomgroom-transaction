@@ -25,7 +25,7 @@ public class TransactionController{
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<Object> findAllTransactionsByUserId(@PathVariable("userId") UUID userId){
+    public ResponseEntity<Object> findAllTransactionsByUserId(@PathVariable("userId") Integer userId){
         try{
             List<Transaction> transactions = transactionService.findAllByUserId(userId);
             return ResponseEntity.status(HttpStatus.OK).body(transactions);

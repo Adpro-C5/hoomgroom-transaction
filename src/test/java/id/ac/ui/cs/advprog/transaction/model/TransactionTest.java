@@ -19,7 +19,7 @@ public class TransactionTest {
     void setUp() {
         this.transaction = new Transaction();
         this.transaction.setTransactionId(UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"));
-        this.transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        this.transaction.setUserId(1);
         this.transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         this.transaction.setProductAmount(15);
         this.transaction.setPromoCode(null);
@@ -35,7 +35,7 @@ public class TransactionTest {
 
     @Test
     void testGetUserId() {
-        assertEquals(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"), this.transaction.getUserId());
+        assertEquals(1, this.transaction.getUserId());
     }
 
     @Test

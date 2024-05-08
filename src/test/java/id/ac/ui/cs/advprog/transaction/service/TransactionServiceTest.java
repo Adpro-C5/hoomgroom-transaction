@@ -38,7 +38,7 @@ class TransactionServiceTest{
     void testCreateAndFind(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("5814d7e4-4fa9-4cb3-80da-4b7315792611"));
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -71,7 +71,7 @@ class TransactionServiceTest{
     void testFindByUserId(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("5814d7e4-4fa9-4cb3-80da-4b7315792611"));
-        transaction.setUserId(UUID.fromString("021d6322-de9c-4d83-b571-8620e6b05d99"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -85,7 +85,7 @@ class TransactionServiceTest{
 
         Transaction transaction2 = new Transaction();
         transaction2.setTransactionId(UUID.fromString("62be915c-251f-4d01-b6de-ec353d57edc6"));
-        transaction2.setUserId(UUID.fromString("021d6322-de9c-4d83-b571-8620e6b05d99"));
+        transaction2.setUserId(1);
         transaction2.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction2.setProductAmount(20);
         transaction2.setPromoCode(null);
@@ -97,9 +97,9 @@ class TransactionServiceTest{
             e.printStackTrace();
         }
 
-        when(transactionRepository.findAllByUserId(UUID.fromString("021d6322-de9c-4d83-b571-8620e6b05d99"))).thenReturn(List.of(transaction, transaction2));
+        when(transactionRepository.findAllByUserId(1)).thenReturn(List.of(transaction, transaction2));
 
-        List<Transaction> transactionList = transactionService.findAllByUserId(UUID.fromString("021d6322-de9c-4d83-b571-8620e6b05d99"));
+        List<Transaction> transactionList = transactionService.findAllByUserId(1);
 
         assertEquals(transactionList.get(0).getUserId(), transaction.getUserId());
         assertEquals(transactionList.get(1).getUserId(), transaction.getUserId());
@@ -109,7 +109,7 @@ class TransactionServiceTest{
     void testFindById(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("5814d7e4-4fa9-4cb3-80da-4b7315792611"));
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -132,7 +132,7 @@ class TransactionServiceTest{
     void testEditTransaction(){
         Transaction transaction = new Transaction();
         transaction.setTransactionId(UUID.fromString("5814d7e4-4fa9-4cb3-80da-4b7315792611"));
-        transaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        transaction.setUserId(1);
         transaction.setProductId(UUID.fromString("658e3ed6-1a43-43b8-98f0-2d23421f65c8"));
         transaction.setProductAmount(15);
         transaction.setPromoCode(null);
@@ -146,7 +146,7 @@ class TransactionServiceTest{
 
         Transaction editedTransaction = new Transaction();
         editedTransaction.setTransactionId(UUID.fromString("5814d7e4-4fa9-4cb3-80da-4b7315792611"));
-        editedTransaction.setUserId(UUID.fromString("14ed324a-7d0b-45a5-8901-37e80a611f8c"));
+        editedTransaction.setUserId(1);
         editedTransaction.setProductId(UUID.fromString("8dff20a8-9df2-4601-b301-30b31737444c"));
         editedTransaction.setProductAmount(15);
         editedTransaction.setPromoCode("BELANJAHEMAT20");
