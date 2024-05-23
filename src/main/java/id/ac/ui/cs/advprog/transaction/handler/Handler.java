@@ -1,14 +1,12 @@
 package id.ac.ui.cs.advprog.transaction.handler;
 
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
+import lombok.Setter;
 
+@Setter
 public abstract class Handler{
 
     private Handler nextHandler;
-
-    public void setNextHandler(Handler nextHandler){
-        this.nextHandler = nextHandler;
-    }
 
     public abstract void handle(Transaction transaction);
 

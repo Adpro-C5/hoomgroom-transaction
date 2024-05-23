@@ -19,15 +19,18 @@ import java.util.UUID;
 public class TransactionServiceImpl implements TransactionService{
 
     private final TransactionRepository transactionRepository;
+
     private final AuthCheckHandler authCheckHandler;
-    RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository){
+    public TransactionServiceImpl(TransactionRepository transactionRepository, RestTemplate restTemplate, AuthCheckHandler authCheckHandler){
         this.transactionRepository = transactionRepository;
+        this.restTemplate = restTemplate;
+        this. authCheckHandler = authCheckHandler;
 
-        this.authCheckHandler = new AuthCheckHandler();
-        TotalPriceHandler totalPriceHandler = new TotalPriceHandler();
-        CouponHandler couponHandler = new CouponHandler();
+        // set next handlers
+        TotalPriceHandler totalPriceHandler = new TotalPriceHandler(restTemplate);
+        CouponHandler couponHandler = new CouponHandler(restTemplate);
         BalanceCheckHandler balanceCheckHandler = new BalanceCheckHandler();
 
         this.authCheckHandler.setNextHandler(totalPriceHandler);

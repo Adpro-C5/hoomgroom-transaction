@@ -7,7 +7,11 @@ import org.springframework.web.client.RestTemplate;
 
 public class TotalPriceHandler extends Handler{
 
-    RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    public TotalPriceHandler(RestTemplate restTemplate){
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public void handle(Transaction transaction){

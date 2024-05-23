@@ -13,13 +13,17 @@ import java.util.regex.Pattern;
 public class CouponHandler extends Handler{
 
     ResponseEntity<PromoCodeDTO> response;
+    private final RestTemplate restTemplate;
+
+    public CouponHandler(RestTemplate restTemplate){
+        this.restTemplate = restTemplate;
+    }
 
     @Override
     public void handle(Transaction transaction){
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        RestTemplate restTemplate = new RestTemplate();
 
         if(transaction.getPromoCode() == null){
             handleNext(transaction);

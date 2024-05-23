@@ -1,5 +1,6 @@
 package id.ac.ui.cs.advprog.transaction.service;
 
+import id.ac.ui.cs.advprog.transaction.handler.AuthCheckHandler;
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
 import id.ac.ui.cs.advprog.transaction.repository.TransactionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +16,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +26,9 @@ class TransactionServiceTest{
 
     @Mock
     TransactionRepository transactionRepository;
+
+    @Mock
+    private AuthCheckHandler authCheckHandler;
 
     SimpleDateFormat dateFormat;
 
@@ -52,6 +55,7 @@ class TransactionServiceTest{
         }
 
         when(transactionRepository.save(transaction)).thenReturn(transaction);
+
         transactionService.create(transaction);
 
         when(transactionRepository.findAll()).thenReturn(List.of(transaction));
