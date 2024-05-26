@@ -13,7 +13,7 @@ public class TotalPriceHandler extends Handler{
     }
 
     @Override
-    public void handle(Transaction transaction){
+    public void handle(Transaction transaction, String jwtToken){
 
         // Sementara menggunakan localhost
         String getProductUrl = "http://localhost:8002/product/" + transaction.getProductId();
@@ -30,7 +30,7 @@ public class TotalPriceHandler extends Handler{
         Double totalPrice = productPrice * transaction.getProductAmount();
         transaction.setTotalPrice(totalPrice);
 
-        handleNext(transaction);
+        handleNext(transaction, jwtToken);
     }
 }
 

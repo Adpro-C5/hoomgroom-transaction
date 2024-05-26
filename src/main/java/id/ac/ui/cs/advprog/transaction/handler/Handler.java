@@ -8,11 +8,11 @@ public abstract class Handler{
 
     private Handler nextHandler;
 
-    public abstract void handle(Transaction transaction);
+    public abstract void handle(Transaction transaction, String jwtToken);
 
-    protected void handleNext(Transaction transaction){
+    protected void handleNext(Transaction transaction, String jwtToken){
         if(this.nextHandler != null){
-            nextHandler.handle(transaction);
+            nextHandler.handle(transaction, jwtToken);
         }
     }
 }

@@ -20,13 +20,13 @@ public class PromoCodeHandler extends Handler{
     }
 
     @Override
-    public void handle(Transaction transaction){
+    public void handle(Transaction transaction, String jwtToken){
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
 
         if(transaction.getPromoCode() == null){
-            handleNext(transaction);
+            handleNext(transaction, jwtToken);
             return;
         }
 
@@ -51,7 +51,7 @@ public class PromoCodeHandler extends Handler{
         Double newPrice = purchase * ( (100.0 - getNumberAtEnd(promoCode.getName())) / 100.0);
         transaction.setTotalPrice(newPrice);
 
-        handleNext(transaction);
+        handleNext(transaction, jwtToken);
     }
 
 

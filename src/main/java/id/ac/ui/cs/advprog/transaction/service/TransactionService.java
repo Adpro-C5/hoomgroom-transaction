@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface TransactionService {
-    Transaction create(Transaction transaction);
+    Transaction create(Transaction transaction, String jwtToken);
     List<Transaction> findAll();
     List<Transaction> findAllByUserId(Integer userId);
     Optional<Transaction> findById(UUID transactionId);

@@ -36,9 +36,9 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public Transaction create(Transaction transaction){
+    public Transaction create(Transaction transaction, String jwtToken){
         try{
-            this.totalPriceHandler.handle(transaction);
+            this.totalPriceHandler.handle(transaction, jwtToken);
             return transactionRepository.save(transaction);
         }
         catch(IllegalArgumentException e){
