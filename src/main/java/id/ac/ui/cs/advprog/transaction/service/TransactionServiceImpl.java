@@ -3,7 +3,7 @@ package id.ac.ui.cs.advprog.transaction.service;
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
 import id.ac.ui.cs.advprog.transaction.repository.TransactionRepository;
 import id.ac.ui.cs.advprog.transaction.handler.TotalPriceHandler;
-import id.ac.ui.cs.advprog.transaction.handler.CouponHandler;
+import id.ac.ui.cs.advprog.transaction.handler.PromoCodeHandler;
 import id.ac.ui.cs.advprog.transaction.handler.BalanceCheckHandler;
 import id.ac.ui.cs.advprog.transaction.dto.ShipmentDTO;
 import org.springframework.scheduling.annotation.Async;
@@ -28,11 +28,11 @@ public class TransactionServiceImpl implements TransactionService{
         this.totalPriceHandler = totalPriceHandler;
 
         // set next handlers
-        CouponHandler couponHandler = new CouponHandler();
+        PromoCodeHandler promoCodeHandler = new PromoCodeHandler();
         BalanceCheckHandler balanceCheckHandler = new BalanceCheckHandler();
 
-        totalPriceHandler.setNextHandler(couponHandler);
-        couponHandler.setNextHandler(balanceCheckHandler);
+        totalPriceHandler.setNextHandler(promoCodeHandler);
+        promoCodeHandler.setNextHandler(balanceCheckHandler);
     }
 
     @Override

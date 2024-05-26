@@ -10,12 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CouponHandler extends Handler{
+public class PromoCodeHandler extends Handler{
 
     ResponseEntity<PromoCodeDTO> response;
     private final RestTemplate restTemplate;
 
-    public CouponHandler(){
+    public PromoCodeHandler(){
         this.restTemplate = new RestTemplate();
     }
 
