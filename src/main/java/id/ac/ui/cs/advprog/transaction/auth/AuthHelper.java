@@ -18,7 +18,7 @@ public class AuthHelper {
             HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
             ResponseEntity<ProfileDTO> response = restTemplate.exchange(
-                    "http://localhost:8090/profile",
+                    "http://34.143.253.15/profile",
                     HttpMethod.GET,
                     entity,
                     ProfileDTO.class

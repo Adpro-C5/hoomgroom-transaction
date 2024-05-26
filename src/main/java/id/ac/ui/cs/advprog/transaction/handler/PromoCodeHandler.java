@@ -31,7 +31,7 @@ public class PromoCodeHandler extends Handler{
         }
 
         try{
-            String getCoupontUrl = "http://localhost:8002/promo_code/name/" + transaction.getPromoCode();
+            String getCoupontUrl = "http://34.87.141.138/promo_code/name/" + transaction.getPromoCode();
             response = restTemplate.getForEntity(getCoupontUrl, PromoCodeDTO.class);
         } catch(Exception e){
             throw new IllegalArgumentException("Promo code " + transaction.getPromoCode() + " not found");
