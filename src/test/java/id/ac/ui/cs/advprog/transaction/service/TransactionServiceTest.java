@@ -1,6 +1,6 @@
 package id.ac.ui.cs.advprog.transaction.service;
 
-import id.ac.ui.cs.advprog.transaction.handler.AuthCheckHandler;
+import id.ac.ui.cs.advprog.transaction.handler.TotalPriceHandler;
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
 import id.ac.ui.cs.advprog.transaction.repository.TransactionRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,12 +28,13 @@ class TransactionServiceTest{
     TransactionRepository transactionRepository;
 
     @Mock
-    private AuthCheckHandler authCheckHandler;
+    TotalPriceHandler totalPriceHandler;
 
     SimpleDateFormat dateFormat;
 
     @BeforeEach
     void setUp(){
+        // MockitoAnnotations.openMocks(this);
         this.dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     }
 
