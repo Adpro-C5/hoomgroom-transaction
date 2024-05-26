@@ -51,7 +51,7 @@ public class TransactionController{
             List<Transaction> transactions = transactionService.findAllByUserId(userId);
             return ResponseEntity.status(HttpStatus.OK).body(transactions);
         } catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class TransactionController{
 
             return ResponseEntity.status(HttpStatus.OK).body(transaction);
         } catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
 
@@ -110,7 +110,7 @@ public class TransactionController{
             Transaction resultTransaction = transactionService.edit(editedTransaction);
             return ResponseEntity.status(HttpStatus.OK).body(resultTransaction);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -130,7 +130,7 @@ public class TransactionController{
             transactionService.deleteById(transactionId);
             return ResponseEntity.status(HttpStatus.OK).body("Transaction Deleted");
         } catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
         }
     }
 }
