@@ -15,8 +15,7 @@ public class TotalPriceHandler extends Handler{
     @Override
     public void handle(Transaction transaction, String jwtToken){
 
-        // Sementara menggunakan localhost
-        String getProductUrl = "http://localhost:8002/product/" + transaction.getProductId();
+        String getProductUrl = "http://34.87.141.138/product/" + transaction.getProductId();
         ResponseEntity<ProductDTO> response = restTemplate.getForEntity(getProductUrl, ProductDTO.class);
 
         ProductDTO product = response.getBody();

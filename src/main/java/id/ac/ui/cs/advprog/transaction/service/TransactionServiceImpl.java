@@ -49,8 +49,7 @@ public class TransactionServiceImpl implements TransactionService{
     @Async("asyncTaskExecutor")
     @Override
     public void createShipment(UUID transactionId){
-        // sementara menggunakan localhost
-        String shippingUrl = "http://localhost:8001/shipment/create/" + transactionId.toString();
+        String shippingUrl = "http://34.143.167.93/shipment/create/" + transactionId.toString();
         restTemplate.postForEntity(shippingUrl, null, ShipmentDTO.class);
     }
 

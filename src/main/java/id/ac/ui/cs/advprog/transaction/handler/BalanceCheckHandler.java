@@ -37,7 +37,7 @@ public class BalanceCheckHandler extends Handler{
         HttpEntity<BalanceDecreaseDTO> entity = new HttpEntity<>(balanceDecreaseDTO, headers);
 
         ResponseEntity<ProfileDTO> response = restTemplate.exchange(
-                "http://localhost:8090/profile/balance/reduce",
+                "http://34.143.253.15/profile/balance/reduce",
                 HttpMethod.PUT,
                 entity,
                 ProfileDTO.class
