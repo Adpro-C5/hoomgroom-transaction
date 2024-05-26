@@ -26,7 +26,7 @@ public class TotalPriceHandler extends Handler{
 
         Double productPrice = product.getPrice();
 
-        if(product.getDiscountedPrice() != 0 || product.getDiscountedPrice() != null){
+        if(product.getDiscountedPrice() != null){
             productPrice = product.getDiscountedPrice();
         }
 
