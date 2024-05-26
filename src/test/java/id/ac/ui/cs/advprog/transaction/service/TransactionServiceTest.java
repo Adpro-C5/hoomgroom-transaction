@@ -57,7 +57,8 @@ class TransactionServiceTest{
 
         when(transactionRepository.save(transaction)).thenReturn(transaction);
 
-        transactionService.create(transaction);
+        String token = "sample-token";
+        transactionService.create(transaction, token);
 
         when(transactionRepository.findAll()).thenReturn(List.of(transaction));
         List<Transaction> transactionList = transactionService.findAll();

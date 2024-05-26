@@ -1,6 +1,8 @@
 package id.ac.ui.cs.advprog.transaction.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import id.ac.ui.cs.advprog.transaction.auth.AuthHelper;
+import id.ac.ui.cs.advprog.transaction.dto.ProfileDTO;
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
 import id.ac.ui.cs.advprog.transaction.service.TransactionService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +36,9 @@ class TransactionControllerTest{
 
     @MockBean
     TransactionService transactionService;
+
+    @MockBean
+    AuthHelper authHelper;
 
     List<Transaction> transactions;
     ObjectMapper objectMapper = new ObjectMapper();
@@ -75,8 +80,10 @@ class TransactionControllerTest{
 
     @Test
     void testFindAll() throws Exception{
+        String token = "sample-token";
         when(transactionService.findAll()).thenReturn(transactions);
-        mockMvc.perform(get("/transaction/all"))
+        when(authHelper.getUserRole(token)).thenReturn("ADMIN");
+        mockMvc.perform(get("/transaction/all").header("Authorization", token))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].transactionId", is(transactions.get(0).getTransactionId().toString())))
@@ -89,7 +96,11 @@ class TransactionControllerTest{
         Transaction transaction = transactions.getFirst();
         doReturn(Optional.of(transaction)).when(transactionService).findById(ArgumentMatchers.any());
 
-        mockMvc.perform(get("/transaction/" + transaction.getTransactionId().toString()))
+        String token = "sample-token";
+        ProfileDTO userProfile = new ProfileDTO("dummy-message", transaction.getUserId(), null, null, null, null, null, null, null);
+        when(authHelper.getUserProfile(token)).thenReturn(userProfile);
+
+        mockMvc.perform(get("/transaction/" + transaction.getTransactionId().toString()).header("Authorization", token))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.transactionId", is(transaction.getTransactionId().toString())));
@@ -101,7 +112,11 @@ class TransactionControllerTest{
         Transaction transaction2 = transactions.get(1);
         doReturn(List.of(transaction1, transaction2)).when(transactionService).findAllByUserId(ArgumentMatchers.any());
 
-        mockMvc.perform(get("/transaction/user/" + transaction1.getUserId().toString()))
+        String token = "sample-token";
+        ProfileDTO userProfile = new ProfileDTO("dummy-message", transaction1.getUserId(), null, null, null, null, null, null, null);
+        when(authHelper.getUserProfile(token)).thenReturn(userProfile);
+
+        mockMvc.perform(get("/transaction/user/" + transaction1.getUserId().toString()).header("Authorization", token))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].userId", is(transaction1.getUserId())))
@@ -111,17 +126,21 @@ class TransactionControllerTest{
     @Test
     void testCreate() throws Exception {
         Transaction transaction = transactions.getFirst();
-        doReturn(transaction).when(transactionService).create(ArgumentMatchers.any());
+        doReturn(transaction).when(transactionService).create(ArgumentMatchers.any(), ArgumentMatchers.any());
+
+        String token = "sample-token";
+        ProfileDTO userProfile = new ProfileDTO("dummy-message", transaction.getUserId(), null, null, null, null, null, null, null);
+        when(authHelper.getUserProfile(token)).thenReturn(userProfile);
 
         String requestBody = objectMapper.writeValueAsString(transaction);
-        mockMvc.perform(post("/transaction/create")
+        mockMvc.perform(post("/transaction/create").header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                         .andExpect(status().isOk())
                         .andExpect(jsonPath("$.transactionId", is(transaction.getTransactionId().toString())));
 
         verify(transactionService, times(1))
-                .create(ArgumentMatchers.any());
+                .create(ArgumentMatchers.any(), ArgumentMatchers.any());
     }
 
     @Test
@@ -129,8 +148,11 @@ class TransactionControllerTest{
         Transaction transaction = transactions.getFirst();
         doReturn(transaction).when(transactionService).edit(ArgumentMatchers.any());
 
+        String token = "sample-token";
+        when(authHelper.getUserRole(token)).thenReturn("ADMIN");
+
         String requestBody = objectMapper.writeValueAsString(transaction);
-        mockMvc.perform(put("/transaction/edit")
+        mockMvc.perform(put("/transaction/edit").header("Authorization", token)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                         .andExpect(status().isOk())
@@ -144,7 +166,10 @@ class TransactionControllerTest{
     void testDelete() throws Exception {
         Transaction transaction = transactions.getFirst();
 
-        mockMvc.perform(delete("/transaction/delete/" + transaction.getTransactionId().toString()))
+        String token = "sample-token";
+        when(authHelper.getUserRole(token)).thenReturn("ADMIN");
+
+        mockMvc.perform(delete("/transaction/delete/" + transaction.getTransactionId().toString()).header("Authorization", token))
                 .andExpect(status().isOk())
                 .andExpect(content().string("Transaction Deleted"));
 
