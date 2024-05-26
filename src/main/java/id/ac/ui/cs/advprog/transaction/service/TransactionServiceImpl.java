@@ -2,7 +2,6 @@ package id.ac.ui.cs.advprog.transaction.service;
 
 import id.ac.ui.cs.advprog.transaction.model.Transaction;
 import id.ac.ui.cs.advprog.transaction.repository.TransactionRepository;
-import id.ac.ui.cs.advprog.transaction.handler.AuthCheckHandler;
 import id.ac.ui.cs.advprog.transaction.handler.TotalPriceHandler;
 import id.ac.ui.cs.advprog.transaction.handler.CouponHandler;
 import id.ac.ui.cs.advprog.transaction.handler.BalanceCheckHandler;
@@ -20,20 +19,18 @@ public class TransactionServiceImpl implements TransactionService{
 
     private final TransactionRepository transactionRepository;
 
-    private final AuthCheckHandler authCheckHandler;
+    private final TotalPriceHandler totalPriceHandler;
     private final RestTemplate restTemplate;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository, RestTemplate restTemplate, AuthCheckHandler authCheckHandler){
+    public TransactionServiceImpl(TransactionRepository transactionRepository, TotalPriceHandler totalPriceHandler){
         this.transactionRepository = transactionRepository;
-        this.restTemplate = restTemplate;
-        this. authCheckHandler = authCheckHandler;
+        this.restTemplate = new RestTemplate();
+        this.totalPriceHandler = totalPriceHandler;
 
         // set next handlers
-        TotalPriceHandler totalPriceHandler = new TotalPriceHandler(restTemplate);
-        CouponHandler couponHandler = new CouponHandler(restTemplate);
+        CouponHandler couponHandler = new CouponHandler();
         BalanceCheckHandler balanceCheckHandler = new BalanceCheckHandler();
 
-        this.authCheckHandler.setNextHandler(totalPriceHandler);
         totalPriceHandler.setNextHandler(couponHandler);
         couponHandler.setNextHandler(balanceCheckHandler);
     }
@@ -41,7 +38,7 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public Transaction create(Transaction transaction){
         try{
-            this.authCheckHandler.handle(transaction);
+            this.totalPriceHandler.handle(transaction);
             return transactionRepository.save(transaction);
         }
         catch(IllegalArgumentException e){

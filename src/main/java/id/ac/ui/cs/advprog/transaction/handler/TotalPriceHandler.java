@@ -8,9 +8,8 @@ import org.springframework.web.client.RestTemplate;
 public class TotalPriceHandler extends Handler{
 
     private final RestTemplate restTemplate;
-
-    public TotalPriceHandler(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
+    public TotalPriceHandler(){
+        this.restTemplate = new RestTemplate();
     }
 
     @Override

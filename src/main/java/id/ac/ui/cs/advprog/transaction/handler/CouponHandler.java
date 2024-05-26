@@ -15,8 +15,8 @@ public class CouponHandler extends Handler{
     ResponseEntity<PromoCodeDTO> response;
     private final RestTemplate restTemplate;
 
-    public CouponHandler(RestTemplate restTemplate){
-        this.restTemplate = restTemplate;
+    public CouponHandler(){
+        this.restTemplate = new RestTemplate();
     }
 
     @Override
