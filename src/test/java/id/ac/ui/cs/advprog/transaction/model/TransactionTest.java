@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.UUID;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TransactionTest {
+class TransactionTest {
 
     Transaction transaction;
     SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
@@ -70,5 +69,12 @@ public class TransactionTest {
     @Test
     void testGetTotalPrice() {
         assertEquals(34500000.0, this.transaction.getTotalPrice());
+    }
+
+    @Test
+    void testConstructor() {
+        Transaction transactionNew = new Transaction(1, UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"), 5, "BELANJAHEMAT25");
+
+        assertEquals(UUID.fromString("eb558e9f-1c39-460e-8860-71af6af63bd6"), transactionNew.getProductId());
     }
 }

@@ -176,4 +176,52 @@ class TransactionControllerTest{
         verify(transactionService, times(1))
                 .deleteById(ArgumentMatchers.any());
     }
+
+
+    // negative case ===============================================================================================================
+
+    @Test
+    void testFindAllUserNull() throws Exception{
+        String token = "sample-token";
+        when(transactionService.findAll()).thenReturn(transactions);
+        when(authHelper.getUserRole(token)).thenReturn(null);
+        mockMvc.perform(get("/transaction/all").header("Authorization", token))
+                .andExpect(status().isUnauthorized())
+                .andExpect(content().string("Unauthorized request"));
+    }
+
+    @Test
+    void testFindAllUserNonAdmin() throws Exception{
+        String token = "sample-token";
+        when(transactionService.findAll()).thenReturn(transactions);
+        when(authHelper.getUserRole(token)).thenReturn("BUYER");
+        mockMvc.perform(get("/transaction/all").header("Authorization", token))
+                .andExpect(status().isForbidden())
+                .andExpect(content().string("Non admin users cannot view this page"));
+    }
+
+    @Test
+    void testFindAllByUserIdNotMatch() throws Exception {
+        String token = "sample-token";
+        ProfileDTO userProfile = new ProfileDTO("dummy-message", 5, null, null, null, null, null, null, null);
+        when(authHelper.getUserProfile(token)).thenReturn(userProfile);
+
+        mockMvc.perform(get("/transaction/user/" + "1").header("Authorization", token))
+                .andExpect(status().isForbidden())
+                .andExpect(content().string("User ID doesn't match the currently logged in user"));
+    }
+
+    @Test
+    void testFindByIdUserIdNotMatch() throws Exception {
+        Transaction transaction3 = transactions.get(2);
+        doReturn(Optional.of(transaction3)).when(transactionService).findById(ArgumentMatchers.any());
+
+        String token = "sample-token";
+        ProfileDTO userProfile = new ProfileDTO("dummy-message", 5, null, null, null, null, null, null, null);
+        when(authHelper.getUserProfile(token)).thenReturn(userProfile);
+
+        mockMvc.perform(get("/transaction/" + transaction3.getTransactionId()).header("Authorization", token))
+                .andExpect(status().isForbidden())
+                .andExpect(content().string("This transaction isn't owned by the currently logged in user"));
+    }
 }
