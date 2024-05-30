@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 public class AuthHelper {
 
+    private RestTemplate restTemplate = new RestTemplate();
+
     public ProfileDTO getUserProfile(String jwtToken){
         try{
             RestTemplate restTemplate = new RestTemplate();
@@ -33,14 +35,13 @@ public class AuthHelper {
 
     public String getUserRole(String jwtToken){
         try{
-            RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", jwtToken);
 
             HttpEntity<String> entity = new HttpEntity<>(null, headers);
 
             ResponseEntity<String> response = restTemplate.exchange(
-                    "http://localhost:8090/profile/role",
+                    "http://34.143.253.15/profile/role",
                     HttpMethod.GET,
                     entity,
                     String.class

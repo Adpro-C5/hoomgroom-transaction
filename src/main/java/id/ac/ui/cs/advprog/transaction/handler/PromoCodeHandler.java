@@ -13,11 +13,7 @@ import java.util.regex.Pattern;
 public class PromoCodeHandler extends Handler{
 
     ResponseEntity<PromoCodeDTO> response;
-    private final RestTemplate restTemplate;
-
-    public PromoCodeHandler(){
-        this.restTemplate = new RestTemplate();
-    }
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public void handle(Transaction transaction, String jwtToken){

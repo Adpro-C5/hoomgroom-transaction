@@ -7,10 +7,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class TotalPriceHandler extends Handler{
 
-    private final RestTemplate restTemplate;
-    public TotalPriceHandler(){
-        this.restTemplate = new RestTemplate();
-    }
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public void handle(Transaction transaction, String jwtToken){

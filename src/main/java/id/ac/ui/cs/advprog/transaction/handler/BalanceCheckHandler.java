@@ -9,10 +9,11 @@ import org.springframework.web.client.RestTemplate;
 
 public class BalanceCheckHandler extends Handler{
 
+    private AuthHelper authHelper = new AuthHelper();
+    private RestTemplate restTemplate = new RestTemplate();
+
     @Override
     public void handle(Transaction transaction, String jwtToken){
-
-        AuthHelper authHelper = new AuthHelper();
 
         ProfileDTO userProfile = authHelper.getUserProfile(jwtToken);
         if (userProfile == null) {
@@ -28,7 +29,6 @@ public class BalanceCheckHandler extends Handler{
         }
 
         // decrease user's balance
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", jwtToken);
 

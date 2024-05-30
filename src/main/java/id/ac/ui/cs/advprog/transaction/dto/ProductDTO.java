@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 @Getter
+@Setter
 public class ProductDTO{
     UUID id;
     String productName;
