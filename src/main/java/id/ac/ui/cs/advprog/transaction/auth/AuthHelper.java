@@ -13,7 +13,6 @@ public class AuthHelper {
 
     public ProfileDTO getUserProfile(String jwtToken){
         try{
-            RestTemplate restTemplate = new RestTemplate();
             HttpHeaders headers = new HttpHeaders();
             headers.add("Authorization", jwtToken);
 
